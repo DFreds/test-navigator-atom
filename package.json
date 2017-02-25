@@ -4,11 +4,14 @@
   "version": "0.0.0",
   "description": "Navigate between implementation and test files easily.",
   "keywords": [
+    "test",
+    "navigate",
+    "test-navigator"
   ],
   "activationCommands": {
-    "atom-workspace": "test-navigator:toggle"
+    "atom-workspace": "test-navigator:navigate"
   },
-  "repository": "https://github.com/atom/test-navigator",
+  "repository": "https://github.com/DFreds/test-navigator-atom",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
