@@ -1,0 +1,18 @@
+{
+  "name": "test-navigator",
+  "main": "./lib/test-navigator",
+  "version": "0.0.0",
+  "description": "Navigate between implementation and test files easily.",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "test-navigator:toggle"
+  },
+  "repository": "https://github.com/atom/test-navigator",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
