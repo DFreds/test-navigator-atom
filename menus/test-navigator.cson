@@ -2,19 +2,19 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle test-navigator-atom'
-      'command': 'test-navigator-atom:toggle'
+      'label': 'Test Navigator'
+      'command': 'test-navigator:toggle'
     }
   ]
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'test-navigator-atom'
+      'label': 'Test Navigator'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'test-navigator-atom:toggle'
+          'label': 'Navigate'
+          'command': 'test-navigator:toggle'
         }
       ]
     ]
