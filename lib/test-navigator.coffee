@@ -33,10 +33,10 @@ module.exports = TestNavigatorAtom =
 
     matchingFiles = @getMatchingFiles(fileType, possibleFileNames)
 
-    # TODO make split location configurable
     # TODO should this only open the first one? or maybe show a list of options?
+    # should use atom space pen views selectlistview
     for matchingFile in matchingFiles
-      atom.workspace.open(matchingFile, {split: "right"})
+      atom.workspace.open(matchingFile, @getOpenConfig())
 
   getPossibleFileNames: (fileName, fileType) ->
     possibleFileNames = []
@@ -60,3 +60,15 @@ module.exports = TestNavigatorAtom =
       )
 
     return matchingFiles
+
+  getOpenConfig: ->
+    openConfig = {
+      searchAllPanes: true
+    }
+
+    splitLocation = atom.config.get("test-navigator.location")
+
+    if splitLocation != "none"
+      openConfig.split = splitLocation
+
+    return openConfig

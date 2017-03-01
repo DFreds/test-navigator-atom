@@ -36,6 +36,16 @@
       "items": {
         "type": "string"
       }
+    },
+    "location": {
+      "type": "string",
+      "description": "Location of new pane",
+      "default": "right",
+      "enum": [
+        "none",
+        "right",
+        "down"
+      ]
     }
   }
 }
