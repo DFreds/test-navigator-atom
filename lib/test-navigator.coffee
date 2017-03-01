@@ -24,6 +24,9 @@ module.exports = TestNavigatorAtom =
     fileName = textEditorInfo.getFileName()
     fileType = textEditorInfo.getFileType()
 
+    if not fileName? or not fileType?
+      atom.notifications.addError("Unable to gather file information")
+
     possibleFileNames = @getPossibleFileNames(fileName, fileType)
 
     if possibleFileNames.length is 0
@@ -40,10 +43,23 @@ module.exports = TestNavigatorAtom =
 
   getPossibleFileNames: (fileName, fileType) ->
     possibleFileNames = []
-    for testFilePattern in atom.config.get("test-navigator.testFilePatterns")
-      possibleFileNames.push("#{fileName}#{testFilePattern}.#{fileType}")
+
+    implFileName = @getImplFileNameIfTestFile(fileName)
+
+    if implFileName?
+      possibleFileNames.push("#{implFileName}.#{fileType}")
+    else
+      for testFilePattern in atom.config.get("test-navigator.testFilePatterns")
+        possibleFileNames.push("#{fileName}#{testFilePattern}.#{fileType}")
 
     return possibleFileNames
+
+  getImplFileNameIfTestFile: (fileName) ->
+    for testFilePattern in atom.config.get("test-navigator.testFilePatterns")
+      if fileName.endsWith testFilePattern
+        return fileName.split(testFilePattern)[0]
+
+    return null
 
   # TODO make this find file that matches given file path closest
   getMatchingFiles: (fileType, possibleFileNames) ->
