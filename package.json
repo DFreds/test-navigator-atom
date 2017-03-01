@@ -9,7 +9,9 @@
     "test-navigator"
   ],
   "activationCommands": {
-    "atom-workspace": "test-navigator:navigate"
+    "atom-text-editor": [
+      "test-navigator:navigate"
+    ]
   },
   "repository": "https://github.com/DFreds/test-navigator-atom",
   "license": "MIT",
@@ -17,5 +19,23 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
+    "file-system": "^2.2.2"
+  },
+  "configSchema": {
+    "testFilePatterns": {
+      "type": "array",
+      "description": "Comma separated list of possible test patterns.",
+      "default": [
+        ".spec",
+        "-spec",
+        ".test",
+        "-test",
+        "Test",
+        "Spec"
+      ],
+      "items": {
+        "type": "string"
+      }
+    }
   }
 }
