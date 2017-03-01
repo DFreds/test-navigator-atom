@@ -1,0 +1,4 @@
+- navigate to impl from test
+- select view for when multiple files are found
+- ignore paths like node_modules, stuff in .gitignore
+- offer to create new test or impl if it does not exist
