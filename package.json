@@ -19,12 +19,20 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
+    "file-system": "^2.2.2"
   },
   "configSchema": {
     "testFilePatterns": {
       "type": "array",
       "description": "Comma separated list of possible test patterns.",
-      "default": [".spec", "-spec", ".test", "-test", "Test", "Spec"],
+      "default": [
+        ".spec",
+        "-spec",
+        ".test",
+        "-test",
+        "Test",
+        "Spec"
+      ],
       "items": {
         "type": "string"
       }
