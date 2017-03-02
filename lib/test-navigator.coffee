@@ -1,15 +1,19 @@
 TextEditorInfo = require './text-editor-info'
+SelectFileView = require './select-file-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports = TestNavigatorAtom =
+  selectFileView: null
   subscriptions: null
   fileSystem: null
 
   activate: (state) ->
+    @selectFileView = new SelectFileView
     @subscriptions = new CompositeDisposable
     @fileSystem = require 'file-system'
 
     @addAtomCommands()
+    @handleViewEvents()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -17,6 +21,11 @@ module.exports = TestNavigatorAtom =
   addAtomCommands: ->
     @subscriptions.add atom.commands.add 'atom-text-editor',
       'test-navigator:navigate': => @navigate()
+
+  handleViewEvents: ->
+    @subscriptions.add @selectFileView.onConfirmed(
+      @openFile.bind(@)
+    )
 
   navigate: ->
     textEditorInfo = new TextEditorInfo(atom.workspace.getActiveTextEditor())
@@ -36,10 +45,12 @@ module.exports = TestNavigatorAtom =
 
     matchingFiles = @getMatchingFiles(fileType, possibleFileNames)
 
-    # TODO should this only open the first one? or maybe show a list of options?
-    # should use atom space pen views selectlistview
-    for matchingFile in matchingFiles
-      atom.workspace.open(matchingFile, @getOpenConfig())
+    if matchingFiles.length == 1
+      console.log "one file only"
+      @openFile(matchingFiles[0])
+    else
+      console.log "multiple files"
+      @displaySelectView(matchingFiles)
 
   getPossibleFileNames: (fileName, fileType) ->
     possibleFileNames = []
@@ -77,7 +88,7 @@ module.exports = TestNavigatorAtom =
 
     return matchingFiles
 
-  getOpenConfig: ->
+  openFile: (filePath) ->
     openConfig = {
       searchAllPanes: true
     }
@@ -87,4 +98,7 @@ module.exports = TestNavigatorAtom =
     if splitLocation != "none"
       openConfig.split = splitLocation
 
-    return openConfig
+    atom.workspace.open(filePath, openConfig)
+
+  displaySelectView: (matchingFiles) ->
+    @selectFileView.populateAndShow(matchingFiles)
