@@ -1,4 +1,2 @@
-- navigate to impl from test
-- ignore paths like node_modules, stuff in .gitignore
+- ignore stuff in .gitignore
 - offer to create new test or impl if it does not exist
-- create project file helper class to cleanup test-navigator
