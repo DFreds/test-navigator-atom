@@ -30,38 +30,40 @@ module.exports = TestNavigatorAtom =
   navigate: ->
     textEditorInfo = new TextEditorInfo(atom.workspace.getActiveTextEditor())
 
-    fileName = textEditorInfo.getFileName()
-    fileType = textEditorInfo.getFileType()
+    fileInfo = textEditorInfo.getFileInfo()
 
-    if not fileName? or not fileType?
-      atom.notifications.addError("Unable to gather file information")
-
-    possibleFileNames = @getPossibleFileNames(fileName, fileType)
-
-    if possibleFileNames.length is 0
-      atom.notifications.addError("Test patterns must exist to navigate to test\
-      Please modify your configuration.")
+    if not fileInfo?.isValid()
+      atom.notifications.addWarning("Unable to gather file information")
       return
 
-    matchingFiles = @getMatchingFiles(fileType, possibleFileNames)
+    possibleFileNames = @getPossibleFileNames(fileInfo)
+
+    if possibleFileNames.length is 0
+      atom.notifications.addWarning("Test patterns must exist to navigate to\
+       test. Please update your configuration.")
+      return
+
+    matchingFiles = @getMatchingFiles(fileInfo.fileType, possibleFileNames)
 
     if matchingFiles.length == 1
-      console.log "one file only"
       @openFile(matchingFiles[0])
-    else
-      console.log "multiple files"
+    else if matchingFiles.length > 1
       @displaySelectView(matchingFiles)
+    else
+      atom.notifications.addWarning("Did not find any matching files")
 
-  getPossibleFileNames: (fileName, fileType) ->
+  getPossibleFileNames: (fileInfo) ->
     possibleFileNames = []
 
-    implFileName = @getImplFileNameIfTestFile(fileName)
+    implFileName = @getImplFileNameIfTestFile(fileInfo.fileName)
 
     if implFileName?
-      possibleFileNames.push("#{implFileName}.#{fileType}")
+      possibleFileNames.push("#{implFileName}.#{fileInfo.fileType}")
     else
       for testFilePattern in atom.config.get("test-navigator.testFilePatterns")
-        possibleFileNames.push("#{fileName}#{testFilePattern}.#{fileType}")
+        possibleFileNames.push(
+          "#{fileInfo.fileName}#{testFilePattern}.#{fileInfo.fileType}"
+        )
 
     return possibleFileNames
 
