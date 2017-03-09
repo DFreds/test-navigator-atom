@@ -12,10 +12,10 @@ class SelectFileView extends SelectListView
     @panel.hide()
 
   viewForItem: (item) ->
-    "<li>#{item}</li>"
+    "<li>#{item.relativePath}</li>"
 
   confirmed: (item) ->
-    @emitter.emit 'confirmed', item
+    @emitter.emit 'confirmed', item.relativePath
     @panel.hide()
 
   cancelled: ->

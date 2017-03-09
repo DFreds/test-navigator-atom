@@ -1,10 +1,15 @@
-FileInfo = require './data/file-info'
-
 module.exports =
-class TextEditorInfo
+class FileInfoHelper
   constructor: (@textEditor = null) ->
 
-  getFileInfo: ->
+  isValid: ->
+    return @getFileName? and @getFileType?
+
+  getPath: ->
+    return null if not @textEditor?
+    return @textEditor.getPath()
+
+  getFileName: ->
     return null if not @textEditor?
 
     splitTitle = @textEditor.getTitle().split(".")
@@ -14,8 +19,14 @@ class TextEditorInfo
     while i < splitTitle.length - 1
       fileName += "." + splitTitle[i]
 
+    return fileName
+
+  getFileType: ->
     fileType = null
+
+    splitTitle = @textEditor.getTitle().split(".")
+
     if splitTitle.length > 1
       fileType = splitTitle[splitTitle.length - 1]
 
-    return new FileInfo(fileName, fileType)
+    return fileType

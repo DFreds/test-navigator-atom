@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^2.2.0",
-    "file-system": "^2.2.2"
+    "fast-levenshtein": "^2.0.6",
+    "file-system": "^2.2.2",
+    "lodash": "^4.17.4"
   },
   "configSchema": {
     "testFilePatterns": {
