@@ -1,20 +1,22 @@
+MatchingFile = require './model/matching-file'
+
 module.exports =
 class FileFinder
 
   constructor: ->
     @fileSystem = require 'file-system'
 
-  getPossibleFileNames: (fileInfo) ->
+  getPossibleFileNames: (fileName, fileType) ->
     possibleFileNames = []
 
-    implFileName = @getImplFileNameIfTestFile(fileInfo.fileName)
+    implFileName = @getImplFileNameIfTestFile(fileName)
 
     if implFileName?
-      possibleFileNames.push("#{implFileName}.#{fileInfo.fileType}")
+      possibleFileNames.push("#{implFileName}.#{fileType}")
     else
       for testFilePattern in atom.config.get("test-navigator.testFilePatterns")
         possibleFileNames.push(
-          "#{fileInfo.fileName}#{testFilePattern}.#{fileInfo.fileType}"
+          "#{fileName}#{testFilePattern}.#{fileType}"
         )
 
     return possibleFileNames
@@ -37,9 +39,8 @@ class FileFinder
         "**/*.#{fileType}*",
         "!node_modules/**/*.#{fileType}"
       ], (filePath, relative, fileName) ->
-        console.log "#{relative}"
         if possibleFileNames.includes fileName
-          matchingFiles.push(relative)
+          matchingFiles.push(new MatchingFile(filePath, relative))
       )
 
     return matchingFiles
