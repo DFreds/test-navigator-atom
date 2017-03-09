@@ -3,7 +3,7 @@
   'atom-text-editor': [
     {
       'label': 'Test Navigator'
-      'command': 'test-navigator:toggle'
+      'command': 'test-navigator:navigate'
     }
   ]
 'menu': [
@@ -14,7 +14,7 @@
       'submenu': [
         {
           'label': 'Navigate'
-          'command': 'test-navigator:toggle'
+          'command': 'test-navigator:navigate'
         }
       ]
     ]
