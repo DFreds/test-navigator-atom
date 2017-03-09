@@ -50,7 +50,7 @@ module.exports = TestNavigatorAtom =
     )
 
     if matchingFiles.length == 1
-      @openFile(matchingFiles[0].relative)
+      @openFile(matchingFiles[0].relativePath)
     else if matchingFiles.length > 1
       matchingFiles = @levenshteinSort(matchingFiles, fileInfoHelper.getPath())
       @displaySelectView(matchingFiles)
