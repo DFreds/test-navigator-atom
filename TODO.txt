@@ -1,2 +1,3 @@
 - ignore stuff in .gitignore
-- offer to create new test or impl if it does not exist
+- do README
+- do changelog
