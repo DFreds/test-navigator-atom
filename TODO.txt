@@ -1,3 +1,1 @@
 - ignore stuff in .gitignore
-- do README
-- do changelog
