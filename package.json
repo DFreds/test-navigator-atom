@@ -1,7 +1,7 @@
 {
   "name": "test-navigator",
   "main": "./lib/test-navigator",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Navigate between implementation and test files easily.",
   "keywords": [
     "test",
