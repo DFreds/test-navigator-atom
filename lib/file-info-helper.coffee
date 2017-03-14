@@ -15,8 +15,8 @@ class FileInfoHelper
     splitTitle = @textEditor.getTitle().split(".")
 
     fileName = splitTitle[0]
-    i = 1
-    while i < splitTitle.length - 1
+
+    for i in [1...splitTitle.length - 1]
       fileName += "." + splitTitle[i]
 
     return fileName
