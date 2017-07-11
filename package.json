@@ -31,8 +31,10 @@
       "default": [
         ".spec",
         "-spec",
+        "_spec",
         ".test",
         "-test",
+        "_test",
         "Test",
         "Spec"
       ],

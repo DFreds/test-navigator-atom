@@ -1,3 +1,6 @@
+## 1.0.2 - Add additional default test patterns
+* Added \_spec and \_test by request
+
 ## 1.0.1 - Fix issue with periods in file names
 * Files with periods in the names (such app.module.js) were not being found correctly
 
